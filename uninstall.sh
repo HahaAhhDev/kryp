@@ -2,41 +2,21 @@
 set -e
 
 INSTALL_DIR="${KRYP_INSTALL_DIR:-$HOME/.local/bin}"
-BINARY="$INSTALL_DIR/kryp"
 
 echo "→ Uninstalling Kryp..."
 
-# Remove binary
-if [ -f "$BINARY" ]; then
-    rm -f "$BINARY"
-    echo "✓ Removed $BINARY"
+if [ -f "$INSTALL_DIR/kryp" ]; then
+    rm -f "$INSTALL_DIR/kryp"
+    echo "✓ Removed binary"
 else
-    echo "⚠ Binary not found at $BINARY"
+    echo "⚠ Binary not found at $INSTALL_DIR/kryp"
 fi
 
-# Remove PATH entry from shell configs
 for rc in "$HOME/.bashrc" "$HOME/.zshrc" "$HOME/.profile"; do
-    if [ -f "$rc" ] && grep -q "# Kryp language executor" "$rc"; then
-        # Remove the comment + export line (2 lines)
-        sed -i.bak '/# Kryp language executor/,+1d' "$rc" && rm -f "${rc}.bak"
+    if [ -f "$rc" ] && grep -q "# Kryp" "$rc"; then
+        sed -i.bak '/# Kryp/,+1d' "$rc" && rm -f "${rc}.bak"
         echo "✓ Removed PATH entry from $rc"
     fi
 done
 
-# Remove local venv if exists
-VENV_DIR="$HOME/.kryp_venv"
-if [ -d "$VENV_DIR" ]; then
-    rm -rf "$VENV_DIR"
-    echo "✓ Removed virtual environment $VENV_DIR"
-fi
-
-# Remove cached packages metadata
-CACHE_DIR="$HOME/.cache/kryp"
-if [ -d "$CACHE_DIR" ]; then
-    rm -rf "$CACHE_DIR"
-    echo "✓ Removed cache $CACHE_DIR"
-fi
-
-echo ""
-echo "✓ Kryp uninstalled completely."
-echo "  Restart your terminal to clear PATH changes."
+echo "✓ Kryp uninstalled. Restart terminal to clear PATH."
