@@ -1,0 +1,88 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Kryp",
+    "scopeName": "source.kryp",
+    "patterns": [
+      { "include": "#comments" },
+      { "include": "#strings" },
+      { "include": "#keywords" },
+      { "include": "#functions" },
+      { "include": "#console" },
+      { "include": "#exec" },
+      { "include": "#operators" },
+      { "include": "#numbers" },
+      { "include": "#variables" }
+    ],
+    "repository": {
+      "comments": {
+        "patterns": [{
+          "name": "comment.line.double-dash.kryp",
+          "match": "--.*$"
+        }]
+      },
+      "strings": {
+        "patterns": [{
+          "name": "string.quoted.double.kryp",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "name": "constant.character.escape.kryp", "match": "\\\\." },
+            {
+              "name": "meta.interpolation.kryp",
+              "begin": "var:\\{",
+              "end": "\\}",
+              "beginCaptures": { "0": { "name": "punctuation.definition.interpolation.begin.kryp" } },
+              "endCaptures": { "0": { "name": "punctuation.definition.interpolation.end.kryp" } },
+              "patterns": [{ "name": "variable.other.kryp", "match": "[a-zA-Z_][a-zA-Z0-9_]*" }]
+            }
+          ]
+        }]
+      },
+      "keywords": {
+        "patterns": [
+          { "name": "keyword.control.kryp", "match": "\\b(if|else|for|while|in|try|catch)\\b" },
+          { "name": "keyword.declaration.kryp", "match": "\\b(fn|var|pyimport)\\b" },
+          { "name": "constant.language.kryp", "match": "\\b(true|false|none)\\b" },
+          { "name": "keyword.operator.arrow.kryp", "match": "=>" }
+        ]
+      },
+      "functions": {
+        "patterns": [{
+          "name": "entity.name.function.kryp",
+          "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?=\\()"
+        }]
+      },
+      "console": {
+        "patterns": [{
+          "match": "(console)\\.(log|error|warn|debug)",
+          "captures": {
+            "1": { "name": "support.class.console.kryp" },
+            "2": { "name": "support.function.console.kryp" }
+          }
+        }]
+      },
+      "exec": {
+        "patterns": [{
+          "match": "(exec)\\((var:)([a-zA-Z_]+)",
+          "captures": {
+            "1": { "name": "support.function.exec.kryp" },
+            "2": { "name": "keyword.operator.var-tag.kryp" },
+            "3": { "name": "constant.language.exec-lang.kryp" }
+          }
+        }]
+      },
+      "operators": {
+        "patterns": [
+          { "name": "keyword.operator.logical.kryp", "match": "(&&|\\|\\||!)" },
+          { "name": "keyword.operator.comparison.kryp", "match": "(==|!=|<=|>=|<|>)" },
+          { "name": "keyword.operator.assignment.kryp", "match": "=" }
+        ]
+      },
+      "numbers": {
+        "patterns": [{ "name": "constant.numeric.kryp", "match": "\\b\\d+(\\.\\d+)?\\b" }]
+      },
+      "variables": {
+        "patterns": [{ "name": "variable.other.kryp", "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b" }]
+      }
+    }
+  }

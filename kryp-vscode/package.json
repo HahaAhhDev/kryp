@@ -1,0 +1,59 @@
+{
+    "name": "kryp-lang",
+    "displayName": "Kryp Language",
+    "description": "Syntax highlighting and language server for Kryp",
+    "version": "0.1.0",
+    "publisher": "HahaAhhDev",
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "main": "./out/extension.js",
+    "activationEvents": [
+        "onLanguage:kryp"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "kryp",
+                "aliases": [
+                    "Kryp",
+                    "kryp"
+                ],
+                "extensions": [
+                    ".kryp"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "kryp",
+                "scopeName": "source.kryp",
+                "path": "./syntaxes/kryp.tmLanguage.json"
+            }
+        ]
+    },
+    "dependencies": {
+        "vscode-languageclient": "^9.0.1",
+        "vscode-languageserver": "^9.0.1",
+        "vscode-languageserver-textdocument": "^1.0.11"
+    },
+    "devDependencies": {
+        "@types/node": "^26.4.1",
+        "@types/vscode": "^1.85.0",
+        "@vscode/vsce": "^2.22.0",
+        "typescript": "^5.3.0"
+    },
+    "scripts": {
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "package": "vsce package"
+    },
+    "repository": {
+        " type": "git",
+        "url": "https://github.com/HahaAhhDev/kryp.git"
+    }
+}
