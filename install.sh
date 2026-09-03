@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-REPO="https://github.com/hahaahhdev/kryp.git"
+REPO="https://github.com/HahaAhhDev/kryp.git"
 INSTALL_DIR="${KRYP_INSTALL_DIR:-$HOME/.local/bin}"
 BUILD_DIR="$(mktemp -d)"
 
